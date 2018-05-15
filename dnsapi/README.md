@@ -876,6 +876,26 @@ acme.sh --issue --dns dns_tele3 -d example.com -d *.example.com
 ```
 
 The TELE3_Key and TELE3_Secret will be saved in ~/.acme.sh/account.conf and will be reused when needed.
+## 47. Use GratisDNS.dk
+
+GratisDNS.dk (https://gratisdns.dj/) does not provide an API to update DNS records (other than IPv4 and IPv6
+dynamic DNS addresses).  The acme.sh plugin therefore retrieves and updates domain TXT records by logging
+into the GratisDNS website to read the HTML and posting updates as HTTP.  The plugin needs to know your
+userid and password for the GratisDNS website.
+
+```sh
+export GDNSDK_Username="..."
+export GDNSDK_Password="..."
+```
+The username and password will be saved in `~/.acme.sh/account.conf` and will be reused when needed.
+
+
+Now you can issue a certificate.
+
+```sh
+acme.sh --issue --dns dns_gdnsdk -d example.com -d *.example.com
+```
+
 # Use custom API
 
 If your API is not supported yet, you can write your own DNS API.
