@@ -159,7 +159,7 @@ _successful_update() {
 _findentry() {
   #returns id of dns entry, if it exists
   _myget "action=dns_primary_changeDNSsetup&user_domain=$_domain"
-  _id=$(echo "$_result" | grep -o -P "$1</td>\s*<td>$2.*?id=\K(\d*)")
+  _id=$(echo "$_result" |sed ':a;N;$!ba;s/\n/ /g'| grep -o -P "$1</td>\s*<td>$2.*?id=\K(\d*)")
   if [ -n "$_id" ]; then
     _debug "Entry found with _id=$_id"
     return 0
